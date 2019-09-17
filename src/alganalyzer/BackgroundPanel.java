@@ -56,6 +56,7 @@ final class BackgroundPanel extends Panel {
      */
     @Override
     public void paint(final Graphics g) {
+        System.out.println("Drawing");
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.RED);
