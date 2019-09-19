@@ -31,17 +31,17 @@ final class AlgorithmAnalyzerFrame extends JPanel {
     /**
      * Window dimensions.
      */
-    private static final int WIN_WIDTH = 1000, WIN_HEIGHT = 800;
+    private final int winW = 1000, winH = 800;
 
     /**
      * Graph resolution.
      */
-    private static final int RES = 1000;
+    private final int res = 1000;
 
     /**
      * Graphics container.
      */
-    private static final BackgroundPanel BGP = new BackgroundPanel();
+    private final BackgroundPanel bgp = new BackgroundPanel();
 
     /**
      * Visual frame of analysis utility.
@@ -55,9 +55,9 @@ final class AlgorithmAnalyzerFrame extends JPanel {
      */
     private void init() {
         setFocusable(true);
-        setPreferredSize(new Dimension(WIN_WIDTH, WIN_HEIGHT));
-        BGP.setPreferredSize(new Dimension(WIN_WIDTH, WIN_HEIGHT));
-        add(BGP);
+        setPreferredSize(new Dimension(winW, winH));
+        bgp.setPreferredSize(new Dimension(winW, winH));
+        add(bgp);
         graph();
     }
 
@@ -66,10 +66,10 @@ final class AlgorithmAnalyzerFrame extends JPanel {
      */
     private void graph() {
         System.out.println("Computing...");
-        int[] yComp = new int[RES];
-        int[] yAlg = new int[RES];
+        int[] yComp = new int[res];
+        int[] yAlg = new int[res];
         Functions analysisFxn = new Functions();
-        for (int j = 0; j < RES; j++) {
+        for (int j = 0; j < res; j++) {
             yComp[j] = -Math.abs(analysisFxn.compareFxn(j));
             analysisFxn.resetCount();
             analysisFxn.algorithm(j);
@@ -77,14 +77,14 @@ final class AlgorithmAnalyzerFrame extends JPanel {
         }
         int firstYAlg = yAlg[0];
         int firstYComp = yComp[0];
-        for (int j = 0; j < RES; j++) {
+        for (int j = 0; j < res; j++) {
             yAlg[j] -= firstYAlg;
-            yAlg[j] += WIN_HEIGHT;
+            yAlg[j] += winH;
             yComp[j] -= firstYComp;
-            yComp[j] += WIN_HEIGHT;
+            yComp[j] += winH;
         }
-        BGP.setCoords(RES, yAlg, yComp);
-        BGP.repaint();
+        bgp.setCoords(res, yAlg, yComp);
+        bgp.repaint();
         System.out.println("Computation Complete.");
     }
 }

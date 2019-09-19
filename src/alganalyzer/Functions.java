@@ -28,7 +28,7 @@ public class Functions {
     /**
      * Counts how many times algorithm has run.
      */
-    private static int algCounter = 0;
+    private int algCounter = 0;
 
     /**
      * Default constructor.
