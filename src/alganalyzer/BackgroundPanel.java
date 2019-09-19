@@ -20,7 +20,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Panel;
+import javax.swing.JPanel;
 
 /**
  * Graphics for utility.
@@ -29,7 +29,7 @@ import java.awt.Panel;
  * @since 9/17/2019
  * @version 9.17.2019
  */
-final class BackgroundPanel extends Panel {
+final class BackgroundPanel extends JPanel {
 
     /**
      * Array of x-coordinates and y-coordinates to be checked.
@@ -55,19 +55,19 @@ final class BackgroundPanel extends Panel {
      * @param g graphics of panel
      */
     @Override
-    public void paint(final Graphics g) {
+    public void paintComponent(final Graphics g) {
         System.out.println("Drawing");
-        super.paint(g);
+        super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.RED);
         g2.setStroke(new BasicStroke(2));
-        for (int j = 0; j < resolution - 1; j += 2) {
-            g2.drawLine(j, ycoordsAlg[j], j + 1, ycoordsAlg[j + 1]);
+        for (int j = 1; j < resolution; j++) {
+            g2.drawLine(j - 1, ycoordsAlg[j - 1], j, ycoordsAlg[j]);
         }
         g2.setColor(Color.BLUE);
         g2.setStroke(new BasicStroke(2));
-        for (int j = 0; j < resolution - 1; j += 2) {
-            g2.drawLine(j, ycoordsCheck[j], j + 1, ycoordsCheck[j + 1]);
+        for (int j = 1; j < resolution; j++) {
+            g2.drawLine(j - 1, ycoordsCheck[j - 1], j, ycoordsCheck[j]);
         }
     }
 

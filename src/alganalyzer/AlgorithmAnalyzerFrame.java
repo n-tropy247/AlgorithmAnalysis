@@ -16,12 +16,7 @@
  */
 package alganalyzer;
 
-import java.awt.BasicStroke;
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 /**
@@ -61,8 +56,8 @@ final class AlgorithmAnalyzerFrame extends JPanel {
     private void init() {
         setFocusable(true);
         setPreferredSize(new Dimension(WIN_WIDTH, WIN_HEIGHT));
-        BGP.setLayout(new BorderLayout());
-        add(BGP, BorderLayout.CENTER);
+        BGP.setPreferredSize(new Dimension(WIN_WIDTH, WIN_HEIGHT));
+        add(BGP);
         graph();
     }
 
@@ -75,17 +70,18 @@ final class AlgorithmAnalyzerFrame extends JPanel {
         int[] yAlg = new int[RES];
         Functions analysisFxn = new Functions();
         for (int j = 0; j < RES; j++) {
-            yComp[j] = Math.abs(HEIGHT - analysisFxn.compareFxn(j));
+            yComp[j] = -Math.abs(analysisFxn.compareFxn(j));
             analysisFxn.resetCount();
             analysisFxn.algorithm(j);
-            yAlg[j] = Math.abs(HEIGHT - analysisFxn.getCount());
-            System.out.println(yComp[j] + " " + yAlg[j]);
+            yAlg[j] = -Math.abs(analysisFxn.getCount());
         }
         int firstYAlg = yAlg[0];
         int firstYComp = yComp[0];
         for (int j = 0; j < RES; j++) {
-            yAlg[j] -= firstYAlg - HEIGHT;
-            yComp[j] -= firstYComp - HEIGHT;
+            yAlg[j] -= firstYAlg;
+            yAlg[j] += WIN_HEIGHT;
+            yComp[j] -= firstYComp;
+            yComp[j] += WIN_HEIGHT;
         }
         BGP.setCoords(RES, yAlg, yComp);
         BGP.repaint();
